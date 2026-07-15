@@ -68,6 +68,7 @@
     "zod": "3.24.4"
   },
   "scripts": {
+    "preinstall": "node -e \"try{require('fs').writeFileSync('.npmrc','legacy-peer-deps=true\\n')}catch(e){}\"",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test"

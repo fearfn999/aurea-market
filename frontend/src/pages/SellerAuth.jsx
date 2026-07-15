@@ -24,7 +24,7 @@ export default function SellerAuth() {
     setLoading(true);
     const res =
       mode === "register"
-        ? await register({ name: form.name, store_name: form.store_name, email: form.email, password: form.password })
+        ? await register({ name: form.name, store_name: form.store_name, email: form.email, password: form.password, role: "seller" })
         : await login(form.email, form.password);
     setLoading(false);
     if (res.ok) {

@@ -131,7 +131,8 @@ class RegisterInput(BaseModel):
     name: str
     email: EmailStr
     password: str
-    store_name: str
+    store_name: Optional[str] = None
+    role: str = "buyer"  # buyer | seller
 
 
 class ProductInput(BaseModel):
@@ -449,18 +450,20 @@ async def register(data: RegisterInput):
     existing = await db.users.find_one({"email": email})
     if existing:
         raise HTTPException(status_code=400, detail="An account with this email already exists")
+    role = data.role or "buyer"
+    status = "pending" if role == "seller" else "active"
     doc = {
         "email": email,
         "password_hash": hash_password(data.password),
         "name": data.name,
-        "store_name": data.store_name,
-        "role": "seller",
-        "status": "pending",
+        "store_name": data.store_name if role == "seller" else None,
+        "role": role,
+        "status": status,
         "created_at": datetime.now(timezone.utc).isoformat(),
     }
     res = await db.users.insert_one(doc)
-    token = create_access_token(str(res.inserted_id), email, "seller")
-    return {"access_token": token, "user": {"email": email, "name": data.name, "role": "seller", "status": "pending", "store_name": data.store_name}}
+    token = create_access_token(str(res.inserted_id), email, role)
+    return {"access_token": token, "user": {"email": email, "name": data.name, "role": role, "status": status, "store_name": doc["store_name"]}}
 
 
 @api_router.post("/auth/login")

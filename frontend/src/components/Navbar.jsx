@@ -1,7 +1,10 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "@/context/CartContext";
-import { ShoppingCart, Zap } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { ShoppingCart, Zap, LogIn, MessageCircle, LogOut } from "lucide-react";
+import { SignInModal } from "@/components/SignInModal";
+import { DISCORD_INVITE_URL } from "@/constants/config";
 
 const LINKS = [
   { label: "Shop", to: "/products" },
@@ -13,8 +16,10 @@ const LINKS = [
 
 export const Navbar = () => {
   const { count } = useCart();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
+  const [showSignIn, setShowSignIn] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -48,6 +53,27 @@ export const Navbar = () => {
           <button onClick={() => navigate("/seller")} data-testid="nav-sell" className="hidden sm:flex items-center px-4 h-9 rounded-full bg-white/5 border border-white/10 text-white hover:border-cyan hover:text-cyan text-[13px] font-semibold transition-colors">
             Sell
           </button>
+
+          {user ? (
+            <>
+              <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 h-9 rounded-full bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-600/30 text-[13px] font-semibold transition-colors">
+                <MessageCircle size={14} />
+                <span className="hidden sm:inline">Discord</span>
+              </a>
+              <div className="flex items-center gap-2 pl-2 border-l border-border">
+                <span className="text-[13px] text-muted-foreground truncate max-w-[80px] sm:max-w-[120px]">{user.name}</span>
+                <button onClick={logout} data-testid="nav-logout" className="text-muted-foreground hover:text-white transition-colors" title="Sign out">
+                  <LogOut size={16} />
+                </button>
+              </div>
+            </>
+          ) : (
+            <button onClick={() => setShowSignIn(true)} className="flex items-center gap-1.5 px-3 h-9 rounded-full bg-white/5 border border-white/10 text-white hover:border-red hover:text-red text-[13px] font-semibold transition-colors">
+              <LogIn size={14} />
+              <span className="hidden sm:inline">Sign In</span>
+            </button>
+          )}
+
           <Link to="/cart" data-testid="cart-link" className="relative flex items-center gap-2 px-4 h-9 rounded-full bg-gradient-to-br from-primary to-primary/70 text-white text-[13px] font-semibold hover:shadow-[0_0_20px_rgba(138,43,226,0.6)] transition-shadow">
             <ShoppingCart size={16} />
             <span className="hidden sm:inline">Cart</span>
@@ -58,6 +84,8 @@ export const Navbar = () => {
             )}
           </Link>
         </div>
+
+        <SignInModal open={showSignIn} onClose={() => setShowSignIn(false)} />
       </nav>
     </div>
   );

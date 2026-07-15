@@ -4,7 +4,8 @@ import { motion } from "framer-motion";
 import { useCart } from "@/context/CartContext";
 import { api } from "@/lib/api";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, Loader2, XCircle } from "lucide-react";
+import { CheckCircle2, Loader2, XCircle, MessageCircle } from "lucide-react";
+import { DISCORD_INVITE_URL } from "@/constants/config";
 
 const MAX_ATTEMPTS = 8;
 
@@ -75,8 +76,12 @@ export default function CheckoutSuccess() {
             <CheckCircle2 size={72} className="mx-auto text-red mb-6" />
           </motion.div>
           <h2 className="font-display font-600 text-3xl mb-3">Payment successful!</h2>
-          <p className="text-muted-foreground max-w-md mx-auto mb-8">
+          <p className="text-muted-foreground max-w-md mx-auto mb-2">
             Thank you for your purchase. Your digital goods will be delivered to your contact shortly — check your email & messages.
+          </p>
+          <p className="text-muted-foreground max-w-md mx-auto mb-8 text-sm flex items-center justify-center gap-2">
+            <MessageCircle size={16} className="text-indigo-400" />
+            Join our <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer" className="text-indigo-400 underline hover:text-indigo-300">Discord server</a> for support & updates.
           </p>
           <Link to="/products"><Button className="rounded-sm bg-red text-white hover:bg-amber font-bold">Continue shopping</Button></Link>
         </div>

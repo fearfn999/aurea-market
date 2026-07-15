@@ -7,13 +7,14 @@ import { Particles } from "@/components/Particles";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, ShieldCheck, Headphones, Flame } from "lucide-react";
 
-const TAGS = ["Discord Nitro", "Game Accounts", "Steam Keys", "Gift Cards", "Instant Delivery"];
+const TAGS = ["Discord Nitro", "Game Accounts", "Steam Keys", "Gift Cards", "Boosting", "Instant Delivery"];
 
 const CATEGORIES = [
   { slug: "discord-nitro", name: "Discord Nitro", img: "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?crop=entropy&cs=srgb&fm=jpg&q=85&w=800" },
   { slug: "game-accounts", name: "Game Accounts", img: "https://images.unsplash.com/photo-1542751371-adc38448a05e?crop=entropy&cs=srgb&fm=jpg&q=85&w=800" },
   { slug: "game-keys", name: "Game Keys", img: "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?crop=entropy&cs=srgb&fm=jpg&q=85&w=800" },
   { slug: "gift-cards", name: "Gift Cards", img: "https://images.unsplash.com/photo-1614294148960-9aa740632a87?crop=entropy&cs=srgb&fm=jpg&q=85&w=800" },
+  { slug: "boosting", name: "Boosting", img: "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?crop=entropy&cs=srgb&fm=jpg&q=85&w=800" },
 ];
 
 const STATS = [
@@ -75,6 +76,13 @@ export default function Home() {
                 className="rounded-lg h-12 px-8 border-border bg-secondary hover:border-red hover:text-red text-foreground font-semibold text-base transition-colors"
               >
                 Discord Nitro
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => navigate("/products?cat=boosting")}
+                className="rounded-lg h-12 px-8 border-border bg-secondary hover:border-amber hover:text-amber text-foreground font-semibold text-base transition-colors"
+              >
+                Boosting
               </Button>
             </div>
           </motion.div>

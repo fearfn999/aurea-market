@@ -12,6 +12,7 @@ const LINKS = [
   { label: "Nitro", to: "/products?cat=discord-nitro" },
   { label: "Accounts", to: "/products?cat=game-accounts" },
   { label: "Keys", to: "/products?cat=game-keys" },
+  { label: "Boosting", to: "/products?cat=boosting" },
   { label: "About", to: "/about" },
 ];
 

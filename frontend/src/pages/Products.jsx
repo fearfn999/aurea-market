@@ -11,6 +11,7 @@ const CATS = [
   { slug: "game-accounts", name: "Game Accounts" },
   { slug: "game-keys", name: "Game Keys" },
   { slug: "gift-cards", name: "Gift Cards" },
+  { slug: "boosting", name: "Boosting" },
 ];
 
 export default function Products() {

@@ -191,6 +191,7 @@ CATEGORIES = [
     {"slug": "game-accounts", "name": "Game Accounts", "icon": "GameController"},
     {"slug": "game-keys", "name": "Game Keys", "icon": "Key"},
     {"slug": "gift-cards", "name": "Gift Cards", "icon": "GiftCard"},
+    {"slug": "boosting", "name": "Boosting", "icon": "TrendUp"},
 ]
 
 
@@ -801,6 +802,16 @@ SEED_PRODUCTS = [
      "description": "Global Steam key for Cyberpunk 2077. Activate and download instantly.", "image": "https://images.unsplash.com/photo-1552820728-8b83bb6b773f?crop=entropy&cs=srgb&fm=jpg&q=85&w=800", "tier": "standard", "stock": 60, "featured": True, "delivery": "Instant Delivery"},
     {"title": "Elden Ring - Steam Key", "category": "game-keys", "price": 34.99, "original_price": 59.99,
      "description": "Global Steam key for Elden Ring. Includes base game, ready to activate.", "image": "https://images.unsplash.com/photo-1509198397868-475647b2a1e5?crop=entropy&cs=srgb&fm=jpg&q=85&w=800", "tier": "standard", "stock": 45, "featured": False, "delivery": "Instant Delivery"},
+    {"title": "Discord Server Boosts - 2 Boosts", "category": "boosting", "price": 9.99, "original_price": 19.99,
+     "description": "2 Discord server boosts applied to your server instantly. Raise your server level, unlock better audio quality, more emoji slots, and a vanity URL.", "image": "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?crop=entropy&cs=srgb&fm=jpg&q=85&w=800", "tier": "standard", "stock": 100, "featured": True, "delivery": "Instant Delivery"},
+    {"title": "Discord Server Boosts - 5 Boosts", "category": "boosting", "price": 19.99, "original_price": 39.99,
+     "description": "5 Discord server boosts applied instantly. Level 2 perks: 1080p streaming, 50 emoji slots, custom splash, and more.", "image": "https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?crop=entropy&cs=srgb&fm=jpg&q=85&w=800", "tier": "premium", "stock": 80, "featured": True, "delivery": "Instant Delivery"},
+    {"title": "Valorant Rank Boost - Platinum to Diamond", "category": "boosting", "price": 59.99, "original_price": 99.99,
+     "description": "Professional Valorant rank boosting from Platinum to Diamond. Played by a top-rated booster. Includes VPN protection and stream option. NA/EU regions.", "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?crop=entropy&cs=srgb&fm=jpg&q=85&w=800", "tier": "premium", "stock": 10, "featured": True, "delivery": "Manual Delivery < 24h"},
+    {"title": "Valorant Rank Boost - Diamond to Ascendant", "category": "boosting", "price": 89.99, "original_price": 149.99,
+     "description": "Diamond to Ascendant rank boost. High MMR, fast queue times. 24/7 support. Choose duo queue or piloted by our pros.", "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?crop=entropy&cs=srgb&fm=jpg&q=85&w=800", "tier": "premium", "stock": 8, "featured": False, "delivery": "Manual Delivery < 24h"},
+    {"title": "League of Legends - Iron to Gold", "category": "boosting", "price": 39.99, "original_price": 69.99,
+     "description": "Iron to Gold IV ranked boost. Fast LP gains with a professional booster. All regions supported.", "image": "https://images.unsplash.com/photo-1493711662062-fa541adb3fc8?crop=entropy&cs=srgb&fm=jpg&q=85&w=800", "tier": "standard", "stock": 20, "featured": False, "delivery": "Manual Delivery < 24h"},
 ]
 
 

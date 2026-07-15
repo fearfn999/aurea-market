@@ -17,6 +17,7 @@ const CATS = [
   { slug: "game-accounts", name: "Game Accounts" },
   { slug: "game-keys", name: "Game Keys" },
   { slug: "gift-cards", name: "Gift Cards" },
+  { slug: "boosting", name: "Boosting" },
 ];
 const EMPTY = { title: "", category: "discord-nitro", price: "", original_price: "", description: "", image: "", tier: "standard", stock: 10, featured: false, delivery: "Instant Delivery" };
 

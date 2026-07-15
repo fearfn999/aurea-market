@@ -22,6 +22,7 @@ export const Footer = () => (
           <li><Link to="/products?cat=game-accounts" className="hover:text-red transition-colors">Game Accounts</Link></li>
           <li><Link to="/products?cat=game-keys" className="hover:text-red transition-colors">Game Keys</Link></li>
           <li><Link to="/products?cat=gift-cards" className="hover:text-red transition-colors">Gift Cards</Link></li>
+          <li><Link to="/products?cat=boosting" className="hover:text-red transition-colors">Boosting</Link></li>
         </ul>
       </div>
       <div>

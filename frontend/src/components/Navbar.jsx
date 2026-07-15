@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
-import { ShoppingCart, Zap, LogIn, MessageCircle, LogOut } from "lucide-react";
+import { ShoppingCart, Zap, LogIn, MessageCircle, LogOut, Menu, X, Package } from "lucide-react";
 import { SignInModal } from "@/components/SignInModal";
 import { DISCORD_INVITE_URL } from "@/constants/config";
 
@@ -20,6 +20,7 @@ export const Navbar = () => {
   const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [showSignIn, setShowSignIn] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 20);
@@ -27,66 +28,98 @@ export const Navbar = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const closeMobile = () => setMobileOpen(false);
+
   return (
-    <div className="fixed top-4 inset-x-0 z-50 px-4" data-testid="navbar">
-      <nav className={`max-w-6xl mx-auto flex items-center justify-between rounded-2xl px-4 sm:px-6 h-14 transition-all duration-500 ${scrolled ? "glass" : "bg-transparent"}`}>
-        <Link to="/" data-testid="logo-link" className="flex items-center gap-2.5 group">
-          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber to-hot flex items-center justify-center shadow-[0_0_18px_rgba(219,165,32,0.5)]">
-            <Zap size={17} className="text-white" fill="currentColor" />
-          </span>
-          <span className="font-display font-800 text-base tracking-tight">
-            AUREA<span className="text-primary">MARKET</span>
-          </span>
-        </Link>
-
-        <div className="hidden md:flex items-center gap-7 text-[13px] font-mono uppercase tracking-widest">
-          {LINKS.map((l) => (
-            <button key={l.label} onClick={() => navigate(l.to)} data-testid={`nav-${l.label.toLowerCase()}`} className="text-muted-foreground hover:text-white transition-colors relative group">
-              {l.label}
-              <span className="absolute -bottom-1 left-0 h-px w-0 bg-cyan transition-all duration-300 group-hover:w-full" />
-            </button>
-          ))}
-          <button onClick={() => navigate("/support")} data-testid="nav-support" className="text-cyan hover:text-white transition-colors">Support</button>
-        </div>
-
-        <div className="flex items-center gap-2.5">
-          <button onClick={() => navigate("/seller")} data-testid="nav-sell" className="hidden sm:flex items-center px-4 h-9 rounded-full bg-white/5 border border-white/10 text-white hover:border-cyan hover:text-cyan text-[13px] font-semibold transition-colors">
-            Sell
-          </button>
-
-          {user ? (
-            <>
-              <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1.5 px-3 h-9 rounded-full bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 hover:bg-indigo-600/30 text-[13px] font-semibold transition-colors">
-                <MessageCircle size={14} />
-                <span className="hidden sm:inline">Discord</span>
-              </a>
-              <div className="flex items-center gap-2 pl-2 border-l border-border">
-                <span className="text-[13px] text-muted-foreground truncate max-w-[80px] sm:max-w-[120px]">{user.name}</span>
-                <button onClick={logout} data-testid="nav-logout" className="text-muted-foreground hover:text-white transition-colors" title="Sign out">
-                  <LogOut size={16} />
-                </button>
-              </div>
-            </>
-          ) : (
-            <button onClick={() => setShowSignIn(true)} className="flex items-center gap-1.5 px-3 h-9 rounded-full bg-white/5 border border-white/10 text-white hover:border-red hover:text-red text-[13px] font-semibold transition-colors">
-              <LogIn size={14} />
-              <span className="hidden sm:inline">Sign In</span>
-            </button>
-          )}
-
-          <Link to="/cart" data-testid="cart-link" className="relative flex items-center gap-2 px-4 h-9 rounded-full bg-gradient-to-br from-amber to-amber/70 text-black text-[13px] font-semibold hover:shadow-[0_0_20px_rgba(219,165,32,0.5)] transition-shadow">
-            <ShoppingCart size={16} />
-            <span className="hidden sm:inline">Cart</span>
-            {count > 0 && (
-              <span data-testid="cart-count" className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-cyan text-black text-[11px] font-bold flex items-center justify-center">
-                {count}
-              </span>
-            )}
+    <>
+      <div className="fixed top-0 inset-x-0 z-50 px-0" data-testid="navbar">
+        <nav className={`mx-auto flex items-center justify-between px-5 h-16 transition-all duration-500 ${scrolled ? "glass border-b border-amber/10" : "bg-transparent"}`}>
+          <Link to="/" onClick={closeMobile} className="flex items-center gap-2.5 group">
+            <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber to-hot flex items-center justify-center shadow-[0_0_20px_rgba(219,165,32,0.4)] group-hover:shadow-[0_0_30px_rgba(219,165,32,0.6)] transition-shadow">
+              <Zap size={18} className="text-black" fill="currentColor" />
+            </span>
+            <span className="font-display font-800 text-base tracking-tight">
+              AUREA<span className="text-amber">MARKET</span>
+            </span>
           </Link>
-        </div>
 
-        <SignInModal open={showSignIn} onClose={() => setShowSignIn(false)} />
-      </nav>
-    </div>
+          <div className="hidden md:flex items-center gap-8 text-[13px] font-mono uppercase tracking-widest">
+            {LINKS.map((l) => (
+              <button key={l.label} onClick={() => navigate(l.to)} className="text-muted-foreground hover:text-amber transition-colors relative group">
+                {l.label}
+                <span className="absolute -bottom-1 left-0 h-px w-0 bg-amber transition-all duration-300 group-hover:w-full" />
+              </button>
+            ))}
+            <button onClick={() => navigate("/support")} className="text-amber/70 hover:text-amber transition-colors">Support</button>
+          </div>
+
+          <div className="flex items-center gap-2.5">
+            <button onClick={() => navigate("/seller")} className="hidden sm:flex items-center px-3.5 h-9 rounded-full border border-amber/20 text-amber/80 hover:bg-amber/10 hover:text-amber text-[12px] font-semibold transition-all">
+              Sell
+            </button>
+
+            {user ? (
+              <>
+                <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer" className="hidden sm:flex items-center gap-1.5 px-3 h-9 rounded-full bg-indigo-600/15 border border-indigo-500/20 text-indigo-300 hover:bg-indigo-600/25 text-[12px] font-semibold transition-colors">
+                  <MessageCircle size={14} />
+                  <span>Discord</span>
+                </a>
+                <button onClick={() => navigate("/orders")} className="flex items-center gap-1.5 px-3 h-9 rounded-full bg-amber/10 border border-amber/20 text-amber hover:bg-amber/20 text-[12px] font-semibold transition-all">
+                  <Package size={14} />
+                  <span className="hidden sm:inline">Orders</span>
+                </button>
+                <div className="flex items-center gap-2 pl-2 border-l border-amber/20">
+                  <span className="text-[12px] text-muted-foreground truncate max-w-[70px] sm:max-w-[100px]">{user.name}</span>
+                  <button onClick={logout} className="text-muted-foreground hover:text-amber transition-colors" title="Sign out">
+                    <LogOut size={15} />
+                  </button>
+                </div>
+              </>
+            ) : (
+              <button onClick={() => setShowSignIn(true)} className="flex items-center gap-1.5 px-3.5 h-9 rounded-full border border-amber/30 bg-amber/10 text-amber hover:bg-amber/20 text-[12px] font-semibold transition-all">
+                <LogIn size={14} />
+                <span className="hidden sm:inline">Sign In</span>
+              </button>
+            )}
+
+            <Link to="/cart" className="relative flex items-center gap-2 px-3.5 h-9 rounded-full bg-gradient-to-br from-amber to-amber/80 text-black text-[12px] font-bold hover:shadow-[0_0_20px_rgba(219,165,32,0.4)] transition-shadow">
+              <ShoppingCart size={15} />
+              <span className="hidden sm:inline">Cart</span>
+              {count > 0 && (
+                <span className="absolute -top-1.5 -right-1.5 w-5 h-5 rounded-full bg-black text-amber text-[10px] font-bold flex items-center justify-center border border-amber/40">
+                  {count}
+                </span>
+              )}
+            </Link>
+
+            <button onClick={() => setMobileOpen(!mobileOpen)} className="md:hidden flex items-center justify-center w-9 h-9 rounded-lg border border-border text-muted-foreground hover:text-amber transition-colors">
+              {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
+          </div>
+        </nav>
+
+        {mobileOpen && (
+          <div className="md:hidden glass border-b border-amber/10 px-5 py-4 space-y-3">
+            {LINKS.map((l) => (
+              <button key={l.label} onClick={() => { navigate(l.to); closeMobile(); }} className="block w-full text-left py-2 text-sm font-mono uppercase tracking-widest text-muted-foreground hover:text-amber transition-colors">
+                {l.label}
+              </button>
+            ))}
+            <button onClick={() => { navigate("/support"); closeMobile(); }} className="block w-full text-left py-2 text-sm font-mono uppercase tracking-widest text-amber/70 hover:text-amber transition-colors">Support</button>
+            {user && (
+              <button onClick={() => { navigate("/orders"); closeMobile(); }} className="block w-full text-left py-2 text-sm font-mono uppercase tracking-widest text-amber/70 hover:text-amber transition-colors">My Orders</button>
+            )}
+            {user && (
+              <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer" className="block w-full text-left py-2 text-sm font-mono uppercase tracking-widest text-indigo-400 hover:text-indigo-300 transition-colors">Discord</a>
+            )}
+            {!user && (
+              <button onClick={() => { setShowSignIn(true); closeMobile(); }} className="w-full py-2.5 rounded-lg bg-amber/20 border border-amber/30 text-amber text-sm font-semibold">Sign In</button>
+            )}
+          </div>
+        )}
+      </div>
+
+      <SignInModal open={showSignIn} onClose={() => setShowSignIn(false)} />
+    </>
   );
 };

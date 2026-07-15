@@ -19,6 +19,7 @@ import About from "@/pages/About";
 import Support from "@/pages/Support";
 import SellerAuth from "@/pages/SellerAuth";
 import SellerDashboard from "@/pages/SellerDashboard";
+import Orders from "@/pages/Orders";
 
 const ProtectedRoute = ({ children }) => {
   const { user, loading } = useAuth();
@@ -56,6 +57,7 @@ function AppRoutes() {
       <Route path="/seller/dashboard" element={<SellerRoute><SellerDashboard /></SellerRoute>} />
       <Route path="/product/:id" element={<StoreLayout><ProductDetail /></StoreLayout>} />
       <Route path="/cart" element={<StoreLayout><Cart /></StoreLayout>} />
+      <Route path="/orders" element={<StoreLayout><Orders /></StoreLayout>} />
       <Route path="/checkout" element={<StoreLayout><Checkout /></StoreLayout>} />
       <Route path="/checkout/success" element={<StoreLayout><CheckoutSuccess /></StoreLayout>} />
       <Route path="/admin/login" element={<AdminLogin />} />

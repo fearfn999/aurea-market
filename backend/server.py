@@ -283,6 +283,14 @@ async def create_order(order: OrderInput):
     return {"id": str(res.inserted_id), "status": "pending", "message": "Order received! We'll deliver to your contact shortly."}
 
 
+@api_router.get("/orders")
+async def get_my_orders(user: dict = Depends(get_current_user)):
+    docs = await db.orders.find({"customer_email": user.get("email", "")}).sort("created_at", -1).to_list(100)
+    for d in docs:
+        d["id"] = str(d.pop("_id"))
+    return docs
+
+
 # ---------------------------------------------------------------------------
 # Routes - Stripe checkout
 # ---------------------------------------------------------------------------
@@ -413,11 +421,18 @@ async def get_checkout_status(session_id: str, request: Request):
         fresh = await db.payment_transactions.find_one({"session_id": session_id})
         await _fulfill_order(fresh)
 
+    order_id = None
+    if pmt_status == "paid":
+        order_doc = await db.orders.find_one({"session_id": session_id})
+        if order_doc:
+            order_id = str(order_doc["_id"])
+
     return {
         "status": st,
         "payment_status": pmt_status,
         "amount_total": amount_total,
         "currency": currency,
+        "order_id": order_id,
     }
 
 

@@ -2,9 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { useAuth } from "@/context/AuthContext";
-import { ShoppingCart, Zap, LogIn, MessageCircle, LogOut, Menu, X, Package } from "lucide-react";
+import { ShoppingCart, LogIn, MessageCircle, LogOut, Menu, X, Package } from "lucide-react";
 import { SignInModal } from "@/components/SignInModal";
 import { DISCORD_INVITE_URL } from "@/constants/config";
+import { NavbarLogo3D } from "@/components/NavbarLogo3D";
 
 const LINKS = [
   { label: "Shop", to: "/products" },
@@ -35,8 +36,8 @@ export const Navbar = () => {
       <div className="fixed top-0 inset-x-0 z-50 px-0" data-testid="navbar">
         <nav className={`mx-auto flex items-center justify-between px-5 h-16 transition-all duration-500 ${scrolled ? "glass border-b border-amber/10" : "bg-transparent"}`}>
           <Link to="/" onClick={closeMobile} className="flex items-center gap-2.5 group">
-            <span className="w-9 h-9 rounded-xl bg-gradient-to-br from-amber to-hot flex items-center justify-center shadow-[0_0_20px_rgba(219,165,32,0.4)] group-hover:shadow-[0_0_30px_rgba(219,165,32,0.6)] transition-shadow">
-              <Zap size={18} className="text-black" fill="currentColor" />
+            <span className="w-9 h-9 flex items-center justify-center">
+              <NavbarLogo3D />
             </span>
             <span className="font-display font-800 text-base tracking-tight">
               AUREA<span className="text-amber">MARKET</span>

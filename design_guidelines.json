@@ -1,0 +1,91 @@
+{
+  "project_name": "Premium Gaming Digital-Goods Marketplace",
+  "theme_strategy": "Insane Next-Gen Cyber Aesthetics - Evolving the 'Purple & Black' concept into a deeply immersive, 'Electric Obsidian' mood. Think dark-mode Awwwards/Godly gaming sites with bento grids, cinematic reveals, and glowing glassmorphism.",
+  "colors": {
+    "background": {
+      "base": "#030305",
+      "surface": "#08080C",
+      "surface_glass": "rgba(10, 10, 15, 0.6)"
+    },
+    "brand": {
+      "primary": "#8A2BE2",
+      "primary_glow": "rgba(138, 43, 226, 0.5)",
+      "secondary": "#00F0FF",
+      "accent": "#FF0055"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#A1A1AA",
+      "muted": "#52525B",
+      "inverse": "#000000"
+    },
+    "border": {
+      "default": "rgba(255, 255, 255, 0.05)",
+      "hover": "rgba(138, 43, 226, 0.3)"
+    }
+  },
+  "typography": {
+    "pairing_strategy": "Editorial Future - Wide Display Sans for impactful headers mixed with Technical Geometric Mono/Sans for body and data.",
+    "fonts": {
+      "heading": "Unbounded",
+      "body": "Chivo",
+      "mono": "JetBrains Mono"
+    },
+    "scale_rules": {
+      "h1": "text-5xl md:text-7xl font-black tracking-tighter uppercase",
+      "h2": "text-4xl md:text-5xl font-bold tracking-tight",
+      "h3": "text-2xl md:text-3xl font-semibold",
+      "body": "text-base leading-relaxed text-zinc-400",
+      "labels": "text-xs font-mono uppercase tracking-[0.2em] text-zinc-500"
+    }
+  },
+  "layouts": {
+    "hero": "Cinematic full-viewport with massive typography overlay, floating 3D/abstract elements, and a subtle glowing gradient mesh behind a dark scrim. CTAs must pop with a neon trace border.",
+    "catalog_grid": "Bento Grid Protocol. Asymmetric product cards. Instead of standard 4-col grids, mix large spotlight cards (col-span-2) with standard cards to create editorial tension.",
+    "product_page": "Immersive split-screen or 2/3 - 1/3 layout. Massive sticky gallery on left, elegant scrolling product details/purchase box on right.",
+    "spacing": "Hyper-generous. Use py-24 or py-32 for section transitions to allow components to breathe."
+  },
+  "visual_enhancers": {
+    "snow_particles": "Evolve the 'snow' into 'Digital Ash' or 'Cyber Dust'. Use react-tsparticles but set color to #8A2BE2/#FFFFFF, opacity to 0.15, size to 1-2px, and move very slowly upwards or diagonally. Do not let it distract from text.",
+    "glassmorphism": "Use backdrop-blur-2xl with extremely subtle borders (border-white/5) for the Navbar and floating menus to create 'Crystal Glass' effect.",
+    "gradients": "No massive flat gradients. Use radial gradients as 'under-lighting' behind cards or text, keeping them strictly within 20% opacity.",
+    "marquees": "Add a slow, kinetic text ribbon (e.g., 'NEW DROPS \u2022 PREMIUM SELLERS \u2022 INSTANT DELIVERY') across section breaks using large outline text (text-transparent stroke-white/20)."
+  },
+  "components": {
+    "buttons": {
+      "primary": "Sharp edges or extremely pill-shaped (rounded-full). Deep purple background with a soft inner cyan glow on hover. Text must be bold/mono.",
+      "secondary": "Glass button (bg-white/5) with 1px border. Hover state lifts and brightens background."
+    },
+    "product_cards": {
+      "style": "Neumorphic Cyber. Flat dark background, 1px subtle border, glowing drop shadow on hover (shadow-[0_0_20px_rgba(138,43,226,0.3)]).",
+      "content": "Image gets scale-105 on hover. Display discount % as a stark, high-contrast badge (e.g., bg-accent text-white). Include seller attribution in mono font."
+    },
+    "navbar": "Sticky, floating pill or edge-to-edge crystal glass. Ensure solid z-index. Must contain logo, main nav, user auth, and cart icon."
+  },
+  "motion": {
+    "scroll_reveals": "Use Framer Motion. Elements should fade in and slide up slightly (y: 20) with spring physics as they enter the viewport.",
+    "hover_states": "Magnetic hover effect on primary CTAs if possible, otherwise scale up 1.02 with a duration of 0.3s ease-out.",
+    "page_transitions": "Instant and fluid. Avoid heavy page reload stutters."
+  },
+  "image_urls": {
+    "hero_abstract": "https://images.unsplash.com/photo-1643139863038-7355941e9e89?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1ODF8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMG5lb24lMjBwdXJwbGUlMjAzZHxlbnwwfHx8fDE3ODQwMDc2Mjh8MA&ixlib=rb-4.1.0&q=85",
+    "category_bg_1": "https://images.unsplash.com/photo-1696710257827-75e2e5954059?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjY2NzN8MHwxfHNlYXJjaHwxfHxnYW1pbmclMjBrZXlib2FyZCUyMG5lb258ZW58MHx8fHwxNzg0MDA3NjQyfDA&ixlib=rb-4.1.0&q=85",
+    "seller_avatars": [
+      "https://images.unsplash.com/photo-1524123927353-2436c0c66a1f?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwzfHxlc3BvcnRzJTIwZ2FtZXIlMjBwb3J0cmFpdCUyMGRhcmt8ZW58MHx8fHwxNzg0MDA3NjI3fDA&ixlib=rb-4.1.0&q=85",
+      "https://images.unsplash.com/photo-1568316706995-4aa639a73d99?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwxfHxlc3BvcnRzJTIwZ2FtZXIlMjBwb3J0cmFpdCUyMGRhcmt8ZW58MHx8fHwxNzg0MDA3NjI3fDA&ixlib=rb-4.1.0&q=85"
+    ]
+  },
+  "instructions_to_main_agent": [
+    "Strictly follow the Dark Theme + Electric Obsidian palette. Do not inject default SaaS blue.",
+    "Apply fonts using Google Fonts imports for 'Unbounded' and 'Chivo'.",
+    "Ensure the hero section does not use heavy WebGL/3D out-of-the-box (per user previous rejection); use the provided high-res abstract neon image as a parallax background with floating Framer Motion text layers.",
+    "For the global particles (snow), use react-tsparticles but tune it to be subtle 'cyber dust' (low opacity, purple/white, slow movement) so it doesn't clutter the UI.",
+    "Build standard Shadcn components but override their CSS variables to match the border/glow rules defined here. Remove default border-radius from buttons if going for sharp edges.",
+    "Implement bento grid logic explicitly on the catalog and home page features sections using absolute positioning or CSS Grid (grid-cols-4, col-span utilities).",
+    "Use data-testid on every interactive element."
+  ],
+  "accessibility": {
+    "contrast": "Ensure text over gradients or particles maintains a 4.5:1 contrast ratio. Use text-shadow or a dark scrim (bg-black/40) over images.",
+    "motion": "Respect prefers-reduced-motion for all Framer Motion and tsparticles animations."
+  }
+}

@@ -7,6 +7,7 @@ import { Snow } from "@/components/Snow";
 import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Toaster } from "@/components/ui/sonner";
+import { ChatWidget } from "@/components/ChatWidget";
 import Home from "@/pages/Home";
 import Products from "@/pages/Products";
 import ProductDetail from "@/pages/ProductDetail";
@@ -40,6 +41,7 @@ const StoreLayout = ({ children }) => (
     <Navbar />
     <main>{children}</main>
     <Footer />
+    <ChatWidget />
   </>
 );
 

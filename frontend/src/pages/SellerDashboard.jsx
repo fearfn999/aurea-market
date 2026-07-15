@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { api, money, formatApiError } from "@/lib/api";
 import { useAuth } from "@/context/AuthContext";
@@ -31,12 +31,11 @@ export default function SellerDashboard() {
 
   const pending = user?.status === "pending";
 
-  const load = () => {
+  useEffect(() => {
     if (pending) return;
     api.get("/seller/products").then((r) => setProducts(r.data)).catch(() => {});
     api.get("/seller/stats").then((r) => setStats(r.data)).catch(() => {});
-  };
-  useEffect(() => { load(); /* eslint-disable-next-line */ }, [pending]);
+  }, [pending]);
 
   const openNew = () => { setEditing(null); setForm(EMPTY); setOpen(true); };
   const openEdit = (p) => { setEditing(p.id); setForm({ ...EMPTY, ...p, original_price: p.original_price ?? "" }); setOpen(true); };

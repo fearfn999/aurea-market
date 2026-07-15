@@ -33,6 +33,8 @@ JWT_SECRET = os.environ['JWT_SECRET']
 JWT_ALGORITHM = "HS256"
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
 EMERGENT_LLM_KEY = os.environ.get('OPENAI_API_KEY')
+LLM_BASE_URL = os.environ.get('LLM_BASE_URL', 'https://api.openai.com/v1')
+LLM_MODEL = os.environ.get('LLM_MODEL', 'gpt-4o-mini')
 PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID')
 PAYPAL_SECRET = os.environ.get('PAYPAL_SECRET')
 PAYPAL_MODE = os.environ.get('PAYPAL_MODE', 'sandbox')
@@ -229,10 +231,10 @@ async def support_chat(data: SupportChatInput):
     if not msg:
         raise HTTPException(status_code=400, detail="Message cannot be empty")
 
-    client = AsyncOpenAI(api_key=EMERGENT_LLM_KEY)
+    client = AsyncOpenAI(api_key=EMERGENT_LLM_KEY, base_url=LLM_BASE_URL)
     try:
         resp = await client.chat.completions.create(
-            model="gpt-4o-mini",
+            model=LLM_MODEL,
             messages=[
                 {"role": "system", "content": SUPPORT_SYSTEM_PROMPT},
                 {"role": "user", "content": msg},

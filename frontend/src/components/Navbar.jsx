@@ -31,7 +31,7 @@ export const Navbar = () => {
     <div className="fixed top-4 inset-x-0 z-50 px-4" data-testid="navbar">
       <nav className={`max-w-6xl mx-auto flex items-center justify-between rounded-2xl px-4 sm:px-6 h-14 transition-all duration-500 ${scrolled ? "glass" : "bg-transparent"}`}>
         <Link to="/" data-testid="logo-link" className="flex items-center gap-2.5 group">
-          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-primary to-hot flex items-center justify-center shadow-[0_0_18px_rgba(138,43,226,0.6)]">
+          <span className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber to-hot flex items-center justify-center shadow-[0_0_18px_rgba(219,165,32,0.5)]">
             <Zap size={17} className="text-white" fill="currentColor" />
           </span>
           <span className="font-display font-800 text-base tracking-tight">
@@ -74,7 +74,7 @@ export const Navbar = () => {
             </button>
           )}
 
-          <Link to="/cart" data-testid="cart-link" className="relative flex items-center gap-2 px-4 h-9 rounded-full bg-gradient-to-br from-primary to-primary/70 text-white text-[13px] font-semibold hover:shadow-[0_0_20px_rgba(138,43,226,0.6)] transition-shadow">
+          <Link to="/cart" data-testid="cart-link" className="relative flex items-center gap-2 px-4 h-9 rounded-full bg-gradient-to-br from-amber to-amber/70 text-black text-[13px] font-semibold hover:shadow-[0_0_20px_rgba(219,165,32,0.5)] transition-shadow">
             <ShoppingCart size={16} />
             <span className="hidden sm:inline">Cart</span>
             {count > 0 && (

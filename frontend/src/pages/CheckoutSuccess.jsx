@@ -53,7 +53,8 @@ export default function CheckoutSuccess() {
     };
     poll();
     return () => clearTimeout(timer);
-  }, [sessionId]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionId, provider]);
 
   return (
     <div className="pt-28 pb-20 text-center min-h-screen px-6" data-testid="checkout-success-page">

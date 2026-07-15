@@ -5,6 +5,7 @@ ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
 
 import os
+import json
 import logging
 from typing import List, Optional, Annotated
 from datetime import datetime, timezone, timedelta
@@ -17,14 +18,9 @@ from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from bson import ObjectId
 from pydantic import BaseModel, Field, ConfigDict, BeforeValidator, EmailStr
-from emergentintegrations.payments.stripe.checkout import (
-    StripeCheckout,
-    CheckoutSessionRequest,
-    CheckoutSessionResponse,
-    CheckoutStatusResponse,
-)
-from emergentintegrations.llm.chat import LlmChat, UserMessage
 import httpx
+import stripe
+from openai import AsyncOpenAI
 
 # ---------------------------------------------------------------------------
 # Database
@@ -36,7 +32,7 @@ db = client[os.environ['DB_NAME']]
 JWT_SECRET = os.environ['JWT_SECRET']
 JWT_ALGORITHM = "HS256"
 STRIPE_API_KEY = os.environ.get('STRIPE_API_KEY')
-EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY')
+EMERGENT_LLM_KEY = os.environ.get('OPENAI_API_KEY')
 PAYPAL_CLIENT_ID = os.environ.get('PAYPAL_CLIENT_ID')
 PAYPAL_SECRET = os.environ.get('PAYPAL_SECRET')
 PAYPAL_MODE = os.environ.get('PAYPAL_MODE', 'sandbox')
@@ -232,14 +228,16 @@ async def support_chat(data: SupportChatInput):
     if not msg:
         raise HTTPException(status_code=400, detail="Message cannot be empty")
 
-    chat = LlmChat(
-        api_key=EMERGENT_LLM_KEY,
-        session_id=f"support_{data.session_id}",
-        system_message=SUPPORT_SYSTEM_PROMPT,
-    ).with_model("openai", "gpt-4o-mini")
-
+    client = AsyncOpenAI(api_key=EMERGENT_LLM_KEY)
     try:
-        reply = await chat.send_message(UserMessage(text=msg))
+        resp = await client.chat.completions.create(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": SUPPORT_SYSTEM_PROMPT},
+                {"role": "user", "content": msg},
+            ],
+        )
+        reply = resp.choices[0].message.content or ""
     except Exception as e:
         logger.error("Support chat error: %s", e)
         raise HTTPException(status_code=502, detail="Assistant is temporarily unavailable")
@@ -351,25 +349,27 @@ async def create_checkout_session(data: CheckoutRequest, request: Request):
     if not line_items or total <= 0:
         raise HTTPException(status_code=400, detail="Cart is empty or invalid")
 
-    host_url = str(request.base_url)
-    webhook_url = f"{host_url}api/webhook/stripe"
-    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
-
     origin = data.origin_url.rstrip("/")
     success_url = f"{origin}/checkout/success?session_id={{CHECKOUT_SESSION_ID}}"
     cancel_url = f"{origin}/cart"
 
-    checkout_request = CheckoutSessionRequest(
-        amount=float(total),
-        currency="usd",
+    session = stripe.checkout.Session.create(
+        mode="payment",
+        line_items=[{
+            "price_data": {
+                "currency": "usd",
+                "product_data": {"name": "Aurea Market Order"},
+                "unit_amount": int(round(total * 100)),
+            },
+            "quantity": 1,
+        }],
         success_url=success_url,
         cancel_url=cancel_url,
         metadata={"source": "aurea_market", "customer_email": data.customer_email},
     )
-    session: CheckoutSessionResponse = await stripe_checkout.create_checkout_session(checkout_request)
 
     await db.payment_transactions.insert_one({
-        "session_id": session.session_id,
+        "session_id": session.id,
         "amount": total,
         "currency": "usd",
         "items": line_items,
@@ -384,7 +384,7 @@ async def create_checkout_session(data: CheckoutRequest, request: Request):
         "created_at": datetime.now(timezone.utc).isoformat(),
     })
 
-    return {"url": session.url, "session_id": session.session_id}
+    return {"url": session.url, "session_id": session.id}
 
 
 @api_router.get("/checkout/status/{session_id}")
@@ -393,25 +393,31 @@ async def get_checkout_status(session_id: str, request: Request):
     if not txn:
         raise HTTPException(status_code=404, detail="Transaction not found")
 
-    host_url = str(request.base_url)
-    webhook_url = f"{host_url}api/webhook/stripe"
-    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=webhook_url)
-    status: CheckoutStatusResponse = await stripe_checkout.get_checkout_status(session_id)
+    stripe.api_key = STRIPE_API_KEY
+    try:
+        sess = stripe.checkout.Session.retrieve(session_id)
+        pmt_status = sess.payment_status
+        st = sess.status
+        amount_total = sess.amount_total
+        currency = sess.currency
+    except Exception as e:
+        logger.error("Stripe status error: %s", e)
+        raise HTTPException(status_code=502, detail="Could not check payment status")
 
     await db.payment_transactions.update_one(
         {"session_id": session_id},
-        {"$set": {"status": status.status, "payment_status": status.payment_status}},
+        {"$set": {"status": st, "payment_status": pmt_status}},
     )
 
-    if status.payment_status == "paid":
+    if pmt_status == "paid":
         fresh = await db.payment_transactions.find_one({"session_id": session_id})
         await _fulfill_order(fresh)
 
     return {
-        "status": status.status,
-        "payment_status": status.payment_status,
-        "amount_total": status.amount_total,
-        "currency": status.currency,
+        "status": st,
+        "payment_status": pmt_status,
+        "amount_total": amount_total,
+        "currency": currency,
     }
 
 
@@ -421,23 +427,41 @@ async def stripe_webhook(request: Request):
         return {"received": False}
     body = await request.body()
     signature = request.headers.get("Stripe-Signature")
-    host_url = str(request.base_url)
-    stripe_checkout = StripeCheckout(api_key=STRIPE_API_KEY, webhook_url=f"{host_url}api/webhook/stripe")
+    webhook_secret = os.environ.get("STRIPE_WEBHOOK_SECRET")
+    stripe.api_key = STRIPE_API_KEY
     try:
-        event = await stripe_checkout.handle_webhook(body, signature)
+        if webhook_secret:
+            event = stripe.Webhook.construct_event(payload=body, sig_header=signature, secret=webhook_secret)
+        else:
+            event = json.loads(body)
     except Exception as e:
         logger.error("Stripe webhook error: %s", e)
         raise HTTPException(status_code=400, detail="Invalid webhook")
 
-    if event.session_id:
-        await db.payment_transactions.update_one(
-            {"session_id": event.session_id},
-            {"$set": {"payment_status": event.payment_status}},
-        )
-        if event.payment_status == "paid":
-            txn = await db.payment_transactions.find_one({"session_id": event.session_id})
-            if txn:
-                await _fulfill_order(txn)
+    session_id = event.get("data", {}).get("object", {}).get("id") if isinstance(event, dict) else event.get("data", {}).get("object", {}).get("id", None)
+    if hasattr(event, 'data') and hasattr(event.data, 'object'):
+        session_id = event.data.object.get('id', None) if hasattr(event.data.object, 'get') else getattr(event.data.object, 'id', None)
+
+    if not session_id:
+        return {"received": True}
+
+    pmt_status = "unpaid"
+    if isinstance(event, dict):
+        obj = event.get("data", {}).get("object", {})
+        if obj.get("payment_status") == "paid" or obj.get("status") == "complete":
+            pmt_status = "paid"
+    elif hasattr(event, 'type'):
+        if event.type in ("checkout.session.completed", "checkout.session.async_payment_succeeded"):
+            pmt_status = "paid"
+
+    await db.payment_transactions.update_one(
+        {"session_id": session_id},
+        {"$set": {"payment_status": pmt_status}},
+    )
+    if pmt_status == "paid":
+        txn = await db.payment_transactions.find_one({"session_id": session_id})
+        if txn:
+            await _fulfill_order(txn)
     return {"received": True}
 
 

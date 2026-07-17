@@ -89,7 +89,7 @@ export const Navbar = () => {
               <ShoppingCart size={13} />
               <span className="hidden sm:inline">Cart</span>
               {count > 0 && (
-                <span className="absolute -top-1.5 -right-1.5 w-4.5 h-4.5 rounded-full bg-white text-primary text-[9px] font-bold flex items-center justify-center shadow">
+                <span className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-white text-primary text-[9px] font-bold flex items-center justify-center shadow">
                   {count}
                 </span>
               )}

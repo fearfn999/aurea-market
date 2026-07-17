@@ -59,7 +59,7 @@ export const ChatWidget = () => {
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
             className="fixed bottom-5 right-5 z-50 w-[360px] max-w-[calc(100vw-40px)] rounded-2xl border border-primary/20 bg-card shadow-[0_0_60px_rgba(0,0,0,0.6)] overflow-hidden"
           >
-            <div className="flex items-center justify-between px-4 py-3.5 bg-gradient-to-r from-amber/20 to-transparent border-b border-primary/10">
+            <div className="flex items-center justify-between px-4 py-3.5 bg-gradient-to-r from-primary/10 to-transparent border-b border-primary/10">
               <div className="flex items-center gap-3">
                 <span className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
                   <Bot size={18} className="text-primary" />

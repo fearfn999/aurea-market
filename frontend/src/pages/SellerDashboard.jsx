@@ -106,7 +106,7 @@ export default function SellerDashboard() {
 
             <div className="flex justify-between items-center mb-5">
               <h2 className="font-display font-700 text-xl">My listings</h2>
-              <Button onClick={openNew} data-testid="seller-add-product-btn" className="rounded-lg bg-red hover:bg-amber text-white font-bold">
+              <Button onClick={openNew} data-testid="seller-add-product-btn" className="rounded-lg bg-primary hover:bg-primary/90 text-black font-bold">
                 <Plus size={16} className="mr-1" /> List product
               </Button>
             </div>
@@ -170,7 +170,7 @@ export default function SellerDashboard() {
             <div><Label className="text-sm mb-1.5 block">Description</Label><Textarea data-testid="sform-description" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} className="bg-input border-border rounded-lg" /></div>
             <div className="flex items-center gap-3"><Switch data-testid="sform-featured" checked={form.featured} onCheckedChange={(v) => setForm({ ...form, featured: v })} /><Label className="text-sm">Featured</Label></div>
           </div>
-          <DialogFooter><Button onClick={save} data-testid="sform-save-btn" className="rounded-lg bg-red hover:bg-amber text-white font-bold w-full">{editing ? "Save changes" : "List product"}</Button></DialogFooter>
+          <DialogFooter><Button onClick={save} data-testid="sform-save-btn" className="rounded-lg bg-primary hover:bg-primary/90 text-black font-bold w-full">{editing ? "Save changes" : "List product"}</Button></DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

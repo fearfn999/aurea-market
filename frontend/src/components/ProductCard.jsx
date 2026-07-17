@@ -60,7 +60,7 @@ export const ProductCard = ({ product }) => {
               addItem(product);
               toast.success(`${product.title} added to cart`);
             }}
-            className="rounded-lg bg-red hover:bg-amber text-white font-bold transition-colors active:scale-95"
+            className="rounded-lg bg-primary hover:bg-primary/90 text-black font-bold transition-colors active:scale-95"
           >
             Buy Now
           </Button>

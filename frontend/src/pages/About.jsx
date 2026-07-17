@@ -54,7 +54,7 @@ export default function About() {
             Browse the store or chat with our AI assistant if you need a hand choosing the right product.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/products"><Button data-testid="about-shop-btn" className="rounded-lg h-12 px-8 bg-red hover:bg-amber text-white font-bold glow-red">Browse the store <ArrowRight size={18} className="ml-2" /></Button></Link>
+            <Link to="/products"><Button data-testid="about-shop-btn" className="rounded-lg h-12 px-8 bg-primary hover:bg-primary/90 text-black font-bold shadow-[0_10px_50px_-8px_rgba(0,229,255,0.5)]">Browse the store <ArrowRight size={18} className="ml-2" /></Button></Link>
             <Link to="/support"><Button data-testid="about-support-btn" variant="outline" className="rounded-lg h-12 px-8 border-border bg-secondary hover:border-red hover:text-red font-semibold">Talk to support</Button></Link>
           </div>
         </div>

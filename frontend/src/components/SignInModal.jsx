@@ -39,7 +39,7 @@ export const SignInModal = ({ open, onClose }) => {
     <Dialog open={open} onOpenChange={(v) => { if (!v) { reset(); onClose(); } }}>
       <DialogContent className="sm:max-w-sm rounded-2xl border-border bg-card">
         <DialogHeader className="text-center">
-          <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-hot flex items-center justify-center mx-auto mb-2 shadow-[0_0_18px_rgba(138,43,226,0.6)]">
+          <span className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-magenta flex items-center justify-center mx-auto mb-2 shadow-[0_0_18px_rgba(138,43,226,0.6)]">
             <Zap size={20} className="text-white" fill="currentColor" />
           </span>
           <DialogTitle className="text-lg font-display font-700">
@@ -68,7 +68,7 @@ export const SignInModal = ({ open, onClose }) => {
             <Input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" className="h-10 bg-input border-border rounded-sm" required />
           </div>
           {error && <p className="text-red text-xs">{error}</p>}
-          <Button type="submit" disabled={loading} className="w-full h-10 rounded-sm bg-red text-white hover:bg-amber font-bold">
+          <Button type="submit" disabled={loading} className="w-full h-10 rounded-sm bg-primary text-black hover:bg-primary/90 font-bold">
             {loading ? "Please wait…" : tab === "login" ? "Sign In" : "Create Account"}
           </Button>
         </form>

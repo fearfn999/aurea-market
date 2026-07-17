@@ -188,7 +188,7 @@ export default function AdminDashboard() {
           <TabsContent value="products" className="mt-6">
             <div className="flex justify-between items-center mb-5">
               <h2 className="font-display font-500 text-xl">Manage products</h2>
-              <Button onClick={openNew} data-testid="add-product-btn" className="rounded-sm bg-red hover:bg-amber text-white font-bold">
+              <Button onClick={openNew} data-testid="add-product-btn" className="rounded-sm bg-primary hover:bg-primary/90 text-black font-bold">
                 <Plus size={16} className="mr-1" /> Add product
               </Button>
             </div>
@@ -322,7 +322,7 @@ export default function AdminDashboard() {
             </div>
           </div>
           <DialogFooter>
-            <Button onClick={save} data-testid="save-product-btn" className="rounded-sm bg-red hover:bg-amber text-white font-bold w-full">
+            <Button onClick={save} data-testid="save-product-btn" className="rounded-sm bg-primary hover:bg-primary/90 text-black font-bold w-full">
               {editing ? "Save changes" : "Create product"}
             </Button>
           </DialogFooter>

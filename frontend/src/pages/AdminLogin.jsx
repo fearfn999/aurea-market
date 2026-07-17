@@ -49,7 +49,7 @@ export default function AdminLogin() {
               <Input data-testid="admin-password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" className="h-11 bg-input border-border focus-visible:ring-red rounded-sm" />
             </div>
             {error && <p data-testid="login-error" className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" disabled={loading} data-testid="admin-login-btn" className="w-full rounded-sm h-11 bg-red hover:bg-amber text-white font-bold transition-colors active:scale-95">
+            <Button type="submit" disabled={loading} data-testid="admin-login-btn" className="w-full rounded-sm h-11 bg-primary hover:bg-primary/90 text-black font-bold transition-colors active:scale-95">
               {loading ? "Signing in…" : "Sign in"}
             </Button>
           </form>

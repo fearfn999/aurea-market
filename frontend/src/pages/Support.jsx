@@ -117,7 +117,7 @@ export default function Support() {
             placeholder="Type your message…"
             className="h-11 rounded-lg bg-input border-border focus-visible:ring-red"
           />
-          <Button type="submit" disabled={loading || !input.trim()} data-testid="chat-send-btn" className="h-11 w-11 p-0 rounded-lg bg-red hover:bg-amber text-white shrink-0">
+          <Button type="submit" disabled={loading || !input.trim()} data-testid="chat-send-btn" className="h-11 w-11 p-0 rounded-lg bg-primary hover:bg-primary/90 text-black shrink-0">
             <Send size={18} />
           </Button>
         </form>

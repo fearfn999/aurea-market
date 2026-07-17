@@ -60,7 +60,7 @@ export default function CheckoutSuccess() {
     <div className="pt-28 pb-20 text-center min-h-screen px-6" data-testid="checkout-success-page">
       {state === "checking" && (
         <div className="pt-20" data-testid="status-checking">
-          <Loader2 size={56} className="mx-auto text-amber mb-6 animate-spin" />
+          <Loader2 size={56} className="mx-auto text-primary mb-6 animate-spin" />
           <h2 className="font-display font-700 text-3xl mb-3">Confirming payment</h2>
           <p className="text-muted-foreground">Verifying your transaction with Stripe.</p>
         </div>
@@ -78,11 +78,11 @@ export default function CheckoutSuccess() {
             Thank you for your purchase. Your digital goods will be delivered to your contact shortly.
           </p>
           {orderId && (
-            <p className="text-sm text-amber/80 font-mono mb-6">Order #{orderId.slice(-8)}</p>
+            <p className="text-sm text-primary/80 font-mono mb-6">Order #{orderId.slice(-8)}</p>
           )}
 
-          <div className="max-w-sm mx-auto rounded-xl border border-amber/10 bg-card p-5 mb-8 text-left">
-            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2"><Package size={15} className="text-amber" /> What happens next?</h3>
+          <div className="max-w-sm mx-auto rounded-xl border border-primary/10 bg-card p-5 mb-8 text-left">
+            <h3 className="text-sm font-semibold mb-3 flex items-center gap-2"><Package size={15} className="text-primary" /> What happens next?</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li className="flex gap-2">1. We process your order within minutes</li>
               <li className="flex gap-2">2. Delivery sent to your contact (email/Discord)</li>
@@ -93,7 +93,7 @@ export default function CheckoutSuccess() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             {user && (
               <Link to="/orders">
-                <Button className="rounded-lg bg-amber/20 border border-amber/30 text-amber hover:bg-amber/30 font-semibold">
+                <Button className="rounded-lg bg-primary/20 border border-primary/30 text-primary hover:bg-primary/30 font-semibold">
                   <Package size={16} /> View Orders
                 </Button>
               </Link>
@@ -104,7 +104,7 @@ export default function CheckoutSuccess() {
               </Button>
             </a>
             <Link to="/products">
-              <Button className="rounded-lg bg-amber text-black hover:bg-amber/90 font-bold">
+              <Button className="rounded-lg bg-primary text-black hover:bg-primary/90 font-bold">
                 <ShoppingBag size={16} /> Continue Shopping <ArrowRight size={16} />
               </Button>
             </Link>
@@ -124,7 +124,7 @@ export default function CheckoutSuccess() {
               : "Your payment was not completed. You can try again from your cart."}
           </p>
           <div className="flex items-center justify-center gap-3">
-            <Link to="/cart"><Button className="rounded-lg bg-amber text-black hover:bg-amber/90 font-bold">Back to Cart</Button></Link>
+            <Link to="/cart"><Button className="rounded-lg bg-primary text-black hover:bg-primary/90 font-bold">Back to Cart</Button></Link>
             {state === "timeout" && (
               <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer"><Button className="rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 font-semibold">Get Support</Button></a>
             )}

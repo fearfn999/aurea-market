@@ -56,7 +56,7 @@ export default function Home() {
             </span>
             <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-7xl leading-[1.02] tracking-tight mb-6">
               Level up your<br />
-              <span className="text-red text-glow-red">digital game.</span>
+              <span className="text-red text-shadow-[0_10px_50px_-8px_rgba(0,229,255,0.5)]">digital game.</span>
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl mx-auto mb-10">
               Legit Discord Nitro, ranked game accounts, Steam keys and gift cards. Instant delivery, card & crypto checkout and Discord support — so your setup stays safe.
@@ -65,7 +65,7 @@ export default function Home() {
               <Button
                 data-testid="hero-shop-btn"
                 onClick={() => navigate("/products")}
-                className="rounded-lg h-12 px-8 bg-red hover:bg-amber text-white font-bold text-base transition-colors active:scale-95 glow-red"
+                className="rounded-lg h-12 px-8 bg-primary hover:bg-primary/90 text-black font-bold text-base transition-colors active:scale-95 shadow-[0_10px_50px_-8px_rgba(0,229,255,0.5)]"
               >
                 Browse the store <ArrowRight size={18} className="ml-2" />
               </Button>
@@ -80,7 +80,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 onClick={() => navigate("/products?cat=boosting")}
-                className="rounded-lg h-12 px-8 border-border bg-secondary hover:border-amber hover:text-amber text-foreground font-semibold text-base transition-colors"
+                className="rounded-lg h-12 px-8 border-border bg-secondary hover:border-primary hover:text-primary text-foreground font-semibold text-base transition-colors"
               >
                 Boosting
               </Button>

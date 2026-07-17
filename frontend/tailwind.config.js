@@ -30,21 +30,21 @@ module.exports = {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
-        red: 'hsl(35 90% 55%)',
-        gold: 'hsl(35 90% 55%)',
-        amber: 'hsl(35 80% 45%)',
-        cyan: '#00E5BF',
-        hot: '#FF8C00',
+        cyan: '#00E5FF',
+        magenta: '#FF007A',
+        violet: '#8B5CF6',
       },
       keyframes: {
         'accordion-down': { from: { height: '0' }, to: { height: 'var(--radix-accordion-content-height)' } },
         'accordion-up': { from: { height: 'var(--radix-accordion-content-height)' }, to: { height: '0' } },
         'marquee': { from: { transform: 'translateX(0)' }, to: { transform: 'translateX(-50%)' } },
+        'aurora': { '0%, 100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
         'marquee': 'marquee 32s linear infinite',
+        'aurora': 'aurora 6s ease infinite',
       }
     }
   },

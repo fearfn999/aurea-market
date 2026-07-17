@@ -1,9 +1,9 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, Suspense } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { motion, useInView } from "framer-motion";
 import { api } from "@/lib/api";
 import { ProductCard } from "@/components/ProductCard";
-import { Particles } from "@/components/Particles";
+import Hero3D from "@/components/Hero3D";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Zap, ShieldCheck, Headphones, Flame, TrendingUp, Clock } from "lucide-react";
 
@@ -50,21 +50,23 @@ export default function Home() {
   return (
     <div className="relative">
       {/* ── HERO ── */}
-      <section className="relative overflow-hidden min-h-[90vh] flex items-center">
-        <div className="absolute inset-0 z-0 opacity-60">
-          <Particles />
+      <section className="relative overflow-hidden min-h-screen flex items-center">
+        <div className="absolute inset-0 z-0">
+          <Suspense fallback={<div className="w-full h-full bg-background" />}>
+            <Hero3D />
+          </Suspense>
         </div>
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-background z-[1]" />
-        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-28 pb-20 w-full">
+        <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/30 to-background z-[1]" />
+        <div className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-20 w-full">
           <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7 }}>
-            <div className="flex flex-wrap justify-center gap-2 mb-8 anim-fade-up">
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
               {TAGS.map((t) => (
-                <span key={t} className="px-3 py-1.5 rounded-full bg-secondary/80 border border-border text-xs font-medium text-muted-foreground">
+                <span key={t} className="px-3 py-1.5 rounded-full bg-background/60 backdrop-blur-sm border border-border text-xs font-medium text-muted-foreground">
                   {t}
                 </span>
               ))}
             </div>
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wide mb-6">
+            <span className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 backdrop-blur-sm border border-primary/20 text-primary text-xs font-semibold uppercase tracking-wide mb-6">
               <Flame size={13} /> #1 Trusted Digital Store
             </span>
             <h1 className="font-display font-800 text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight mb-6">
@@ -85,7 +87,7 @@ export default function Home() {
               <Button
                 variant="outline"
                 onClick={() => navigate("/products?cat=discord-nitro")}
-                className="rounded-xl h-12 px-8 border-border bg-secondary/50 hover:border-primary hover:text-primary text-foreground font-semibold text-base transition-all"
+                className="rounded-xl h-12 px-8 border-border bg-background/60 backdrop-blur-sm hover:border-primary hover:text-primary text-foreground font-semibold text-base transition-all"
               >
                 Discord Nitro
               </Button>

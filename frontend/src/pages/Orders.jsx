@@ -40,7 +40,7 @@ export default function Orders() {
         <div className="text-center py-20">
           <Package size={48} className="mx-auto text-muted-foreground/40 mb-4" />
           <p className="text-muted-foreground mb-6">No orders yet.</p>
-          <Link to="/products" className="inline-flex items-center px-5 h-10 rounded-lg bg-primary text-black font-bold text-sm hover:bg-primary/90 transition-colors">Start shopping</Link>
+          <Link to="/products" className="inline-flex items-center px-5 h-10 rounded-lg bg-primary text-white font-bold text-sm hover:bg-primary/90 transition-colors">Start shopping</Link>
         </div>
       ) : (
         <div className="space-y-4">

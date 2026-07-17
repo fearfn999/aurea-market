@@ -68,7 +68,7 @@ export default function Cart() {
             <span className="font-semibold">Total</span>
             <span className="font-display font-600 text-2xl font-mono" data-testid="cart-total">{money(total)}</span>
           </div>
-          <Button data-testid="checkout-btn" onClick={() => navigate("/checkout")} className="w-full rounded-sm h-12 bg-primary hover:bg-primary/90 text-black font-bold transition-colors active:scale-95">
+          <Button data-testid="checkout-btn" onClick={() => navigate("/checkout")} className="w-full rounded-sm h-12 bg-primary hover:bg-primary/90 text-white font-bold transition-colors active:scale-95">
             Checkout <ArrowRight size={18} className="ml-2" />
           </Button>
         </div>

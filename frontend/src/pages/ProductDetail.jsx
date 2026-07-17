@@ -89,7 +89,7 @@ export default function ProductDetail() {
               data-testid="detail-buy-now-btn"
               disabled={product.stock <= 0}
               onClick={() => { addItem(product); navigate("/checkout"); }}
-              className="rounded-sm h-12 px-8 bg-primary hover:bg-primary/90 text-black font-bold transition-colors active:scale-95"
+              className="rounded-sm h-12 px-8 bg-primary hover:bg-primary/90 text-white font-bold transition-colors active:scale-95"
             >
               <Zap size={18} className="mr-2" fill="currentColor" /> Buy now
             </Button>

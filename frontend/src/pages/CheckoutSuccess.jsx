@@ -104,7 +104,7 @@ export default function CheckoutSuccess() {
               </Button>
             </a>
             <Link to="/products">
-              <Button className="rounded-lg bg-primary text-black hover:bg-primary/90 font-bold">
+              <Button className="rounded-lg bg-primary text-white hover:bg-primary/90 font-bold">
                 <ShoppingBag size={16} /> Continue Shopping <ArrowRight size={16} />
               </Button>
             </Link>
@@ -124,7 +124,7 @@ export default function CheckoutSuccess() {
               : "Your payment was not completed. You can try again from your cart."}
           </p>
           <div className="flex items-center justify-center gap-3">
-            <Link to="/cart"><Button className="rounded-lg bg-primary text-black hover:bg-primary/90 font-bold">Back to Cart</Button></Link>
+            <Link to="/cart"><Button className="rounded-lg bg-primary text-white hover:bg-primary/90 font-bold">Back to Cart</Button></Link>
             {state === "timeout" && (
               <a href={DISCORD_INVITE_URL} target="_blank" rel="noopener noreferrer"><Button className="rounded-lg bg-indigo-600/20 border border-indigo-500/30 text-indigo-300 font-semibold">Get Support</Button></a>
             )}

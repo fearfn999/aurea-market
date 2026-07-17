@@ -46,7 +46,7 @@ export const ChatWidget = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className={`fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-magenta text-black shadow-[0_0_30px_rgba(0,229,255,0.4)] flex items-center justify-center hover:scale-105 transition-transform ${open ? "hidden" : ""}`}
+        className={`fixed bottom-5 right-5 z-50 w-14 h-14 rounded-full bg-gradient-to-br from-primary to-blue-700 text-white shadow-[0_0_30px_rgba(75,123,236,0.4)] flex items-center justify-center hover:scale-105 transition-transform ${open ? "hidden" : ""}`}
       >
         <MessageCircle size={24} fill="currentColor" />
       </button>
@@ -114,7 +114,7 @@ export const ChatWidget = () => {
                 placeholder="Type a message..."
                 className="flex-1 h-10 px-3.5 rounded-lg bg-input border border-border text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary/50"
               />
-              <button type="submit" disabled={loading || !input.trim()} className="h-10 w-10 rounded-lg bg-primary text-black flex items-center justify-center disabled:opacity-50 hover:bg-primary/90 transition-colors">
+              <button type="submit" disabled={loading || !input.trim()} className="h-10 w-10 rounded-lg bg-primary text-white flex items-center justify-center disabled:opacity-50 hover:bg-primary/90 transition-colors">
                 <Send size={16} />
               </button>
             </form>

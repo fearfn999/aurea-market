@@ -85,7 +85,7 @@ export default function Checkout() {
           </div>
 
           {method === "card" ? (
-            <Button onClick={payStripe} disabled={submitting} data-testid="pay-btn" className="w-full rounded-lg h-12 bg-primary hover:bg-primary/90 text-black font-bold transition-colors active:scale-95">
+            <Button onClick={payStripe} disabled={submitting} data-testid="pay-btn" className="w-full rounded-lg h-12 bg-primary hover:bg-primary/90 text-white font-bold transition-colors active:scale-95">
               <CreditCard size={18} className="mr-2" /> {submitting ? "Redirecting…" : `Pay with card · ${money(total)}`}
             </Button>
           ) : (

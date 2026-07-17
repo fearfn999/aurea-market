@@ -72,7 +72,7 @@ export default function SellerAuth() {
               <Input data-testid="seller-password" type="password" value={form.password} onChange={set("password")} placeholder="••••••••" className="h-11 bg-input border-border focus-visible:ring-red rounded-lg" />
             </div>
             {error && <p data-testid="seller-auth-error" className="text-sm text-destructive">{error}</p>}
-            <Button type="submit" disabled={loading} data-testid="seller-auth-submit" className="w-full rounded-lg h-11 bg-primary hover:bg-primary/90 text-black font-bold">
+            <Button type="submit" disabled={loading} data-testid="seller-auth-submit" className="w-full rounded-lg h-11 bg-primary hover:bg-primary/90 text-white font-bold">
               {loading ? "Please wait…" : mode === "register" ? "Create seller account" : "Sign in"}
             </Button>
           </form>

@@ -84,7 +84,7 @@ export const Navbar = () => {
               </button>
             )}
 
-            <Link to="/cart" className="relative flex items-center gap-2 px-3.5 h-9 rounded-full bg-gradient-to-br from-primary to-primary/80 text-black text-[12px] font-bold hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-shadow">
+            <Link to="/cart" className="relative flex items-center gap-2 px-3.5 h-9 rounded-full bg-gradient-to-br from-primary to-primary/80 text-black text-[12px] font-bold hover:shadow-[0_0_20px_rgba(75,123,236,0.4)] transition-shadow">
               <ShoppingCart size={15} />
               <span className="hidden sm:inline">Cart</span>
               {count > 0 && (

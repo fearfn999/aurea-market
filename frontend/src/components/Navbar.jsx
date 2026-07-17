@@ -41,7 +41,7 @@ export const Navbar = () => {
               <NavbarLogo3D />
             </span>
             <span className="font-display font-800 text-base tracking-tight">
-              AUREA<span className="text-amber">MARKET</span>
+              AUREA<span className="text-blue-400">MARKET</span>
             </span>
           </Link>
 

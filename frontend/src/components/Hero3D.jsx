@@ -1,10 +1,11 @@
 import { Suspense, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Sparkles, Stars, ContactShadows, MeshDistortMaterial, Environment } from "@react-three/drei";
+import { Float, Sparkles, Stars, ContactShadows, Environment } from "@react-three/drei";
 
 function TorusKnot({ position, color, scale = 1 }) {
   const ref = useRef();
   useFrame((s) => {
+    if (!ref.current) return;
     ref.current.rotation.x = s.clock.elapsedTime * 0.3;
     ref.current.rotation.y = s.clock.elapsedTime * 0.5;
   });
@@ -21,14 +22,15 @@ function TorusKnot({ position, color, scale = 1 }) {
 function Icosahedron({ position, color, scale = 1 }) {
   const ref = useRef();
   useFrame((s) => {
+    if (!ref.current) return;
     ref.current.rotation.x = Math.sin(s.clock.elapsedTime * 0.4) * 0.5;
     ref.current.rotation.y += 0.01;
   });
   return (
     <Float speed={1.2} rotationIntensity={0.3} floatIntensity={1.2}>
-      <mesh ref={mesh} position={position} scale={scale}>
+      <mesh ref={ref} position={position} scale={scale}>
         <icosahedronGeometry args={[0.6, 0]} />
-        <meshStandardMaterial color={color} metalness={0.8} roughness={0.2} wireframe />
+        <meshStandardMaterial color={color} metalness={0} roughness={0.3} wireframe />
       </mesh>
     </Float>
   );
@@ -37,6 +39,7 @@ function Icosahedron({ position, color, scale = 1 }) {
 function Ring({ position, color }) {
   const ref = useRef();
   useFrame((s) => {
+    if (!ref.current) return;
     ref.current.rotation.x = Math.sin(s.clock.elapsedTime * 0.2) * 0.3;
     ref.current.rotation.z = s.clock.elapsedTime * 0.2;
   });
@@ -50,10 +53,12 @@ function Ring({ position, color }) {
   );
 }
 
-function CubeCluster({ position }) {
+function Cubes({ position }) {
   const ref = useRef();
   useFrame((s) => {
+    if (!ref.current) return;
     ref.current.rotation.y = s.clock.elapsedTime * 0.15;
+    ref.current.rotation.x = Math.sin(s.clock.elapsedTime * 0.1) * 0.1;
   });
   return (
     <group ref={ref} position={position}>
@@ -65,8 +70,6 @@ function CubeCluster({ position }) {
               color={["#4B7BEC", "#8B5CF6", "#EC4899"][i]}
               metalness={0.9}
               roughness={0.1}
-              emissive={["#4B7BEC", "#8B5CF6", "#EC4899"][i]}
-              emissiveIntensity={0.1}
             />
           </mesh>
         </Float>
@@ -78,6 +81,7 @@ function CubeCluster({ position }) {
 function Scene() {
   const group = useRef();
   useFrame((state) => {
+    if (!group.current) return;
     const { x, y } = state.pointer;
     group.current.rotation.y += (x * 0.3 - group.current.rotation.y) * 0.03;
     group.current.rotation.x += (-y * 0.2 - group.current.rotation.x) * 0.03;
@@ -91,15 +95,15 @@ function Scene() {
       <Icosahedron position={[-3.2, -1.2, -1.5]} color="#4B7BEC" scale={0.8} />
       <Ring position={[0, 2.5, -3]} color="#60A5FA" />
       <Ring position={[0, -2.2, -2.5]} color="#A78BFA" />
-      <CubeCluster position={[0, 0, 0.5]} />
+      <Cubes position={[0, 0, 0.5]} />
     </group>
   );
 }
 
 export default function Hero3D() {
   return (
-    <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true, alpha: true }}>
-      <ambientLight intensity={0.15} />
+    <Canvas camera={{ position: [0, 0, 7], fov: 45 }} dpr={[1, 1.5]} gl={{ antialias: true, alpha: true }} style={{ width: "100%", height: "100vh" }}>
+      <ambientLight intensity={0.2} />
       <directionalLight position={[4, 6, 4]} intensity={2} color="#4B7BEC" />
       <directionalLight position={[-6, -2, 3]} intensity={0.8} color="#EC4899" />
       <spotLight position={[0, 5, 7]} intensity={1.2} angle={0.5} penumbra={1} color="#8B5CF6" />
